@@ -12,15 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import { useProductsStore } from '@/store/products';
+import { useProductsStore } from "@/store/products";
 
 const productsStore = useProductsStore();
 
 onMounted(() => {
-    productsStore.fetchCategories();
+  productsStore.fetchCategories();
   productsStore.fetchProducts();
 });
 
 const products = computed(() => productsStore.allProducts);
-
 </script>

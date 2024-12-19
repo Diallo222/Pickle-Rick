@@ -1,14 +1,15 @@
 <template lang="pug">
     .card(class="card")
-      img.card-img-top(:src="product.image" alt="Card image cap" class="image")
+      img.card-img-top(:src="character.image" alt="Card image cap" class="image")
       .card-body
-        h4.card-title ${{product.price}}
-        p.card-text {{product.title}}
+        h5.card-title {{character.name}}
+        p.card-text status : {{ character.status }}
+        p.card-text species : {{ character.species }}
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-  product: {
+  character: {
     type: Object,
     required: true,
   },

@@ -7,20 +7,29 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest"
   },
   "dependencies": {
+    "@nuxt/icon": "^1.10.2",
     "@pinia/nuxt": "^0.9.0",
     "bootstrap": "^5.3.3",
+    "nuxi": "^3.17.0",
     "nuxt": "^3.14.1592",
+    "path": "^0.12.7",
     "pinia": "^2.3.0",
     "pug": "^3.0.3",
     "pug-plain-loader": "^1.1.0",
     "vue": "latest",
     "vue-router": "latest"
   },
-  "packageManager": "yarn@4.5.3+sha512.3003a14012e2987072d244c720506549c1aab73ee728208f1b2580a9fd67b92d61ba6b08fe93f6dce68fd771e3af1e59a0afa28dd242dd0940d73b95fedd4e90",
   "devDependencies": {
-    "@vue/language-plugin-pug": "^2.1.10"
+    "@nuxt/test-utils": "^3.15.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/language-plugin-pug": "^2.1.10",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^15.11.7",
+    "playwright-core": "^1.49.1",
+    "vitest": "^2.1.8"
   }
 }
