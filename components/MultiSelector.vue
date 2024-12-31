@@ -1,40 +1,38 @@
 <template lang="pug">
-    .main
-      .form-field.mb-0(v-if="placeholder")
-        input.form-control( :placeholder="placeholder" :value="value" @input="onchange(placeholder, $event.target.value)")
-      .options
-        .dropdown.d-grid.gap-2(v-for="(option, index) in options" :key="index")
-          button.btn.btn-secondary.dropdown-toggle.mt-2(type="button" data-bs-toggle="dropdown" )
-            | {{ option.label }}
-          ul.dropdown-menu
-            li(v-for="(value, index) in option.values" :key="index")
-              a.dropdown-item(@click="onchange(option.label, value)") {{ value }}
+  .main
+    .options
+      .dropdown
+        label(class="form-label") {{ options.label }}
+        select.form-select(:aria-label="options.label" @blur="updateFilter($event, options.label)")
+          option(value="") -- Select {{ options.label }} --
+          option(
+            v-for="option in options.values"
+            :value="option"
+            :key="options.label + option"
+          ) {{ option }}
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-  placeholder: {
+  modelValue: {
     type: String,
-    required: false,
-  },
-  value: {
-    type: String,
-    required: false,
-  },
-  options: {
-    type: Array,
     required: true,
   },
-  onchange: {
-    type: Function,
+  options: {
+    type: Object,
     required: true,
   },
 });
+
+const emit = defineEmits();
+
+const updateFilter = (event: Event, label: string) => {
+  const value = (event.target as HTMLSelectElement).value;
+
+  const updatedFilters = {
+    [label]: value,
+  };
+
+  emit("update:modelValue", updatedFilters);
+};
 </script>
-<style>
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-</style>

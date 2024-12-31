@@ -1,5 +1,5 @@
 <template lang="pug">
-    .spinner-container.d-flex.justify-content-center.align-items-center(v-if="loading" style="height: 100vh")
+    .spinner-container.d-flex.justify-content-center.align-items-center(v-if="loading" style="height: 10vh")
       .spinner-border.text-primary.text-center(role="status")
 </template>
 <script setup lang="ts">

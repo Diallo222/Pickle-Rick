@@ -5,16 +5,18 @@ export const useCharactersStore = defineStore("characters", {
     characters: [] as any[],
     loading: false,
     character: {},
+    pages: 0,
   }),
   actions: {
-    async fetchAllCharacters() {
+    async fetchAllCharacters(page = 1) {
       this.loading = true;
       try {
         const response = await fetch(
-          `https://rickandmortyapi.com/api/character`
+          `https://rickandmortyapi.com/api/character/?page=${page}`
         );
         const data = await response.json();
         this.characters = data.results || [];
+        this.pages = data.info.pages;
       } catch (error) {
         console.error("Failed to fetch characters:", error);
       } finally {
@@ -43,11 +45,20 @@ export const useCharactersStore = defineStore("characters", {
     ) {
       this.loading = true;
       try {
+        const queryParams = new URLSearchParams({
+          name,
+          status,
+          species,
+          type,
+          gender,
+        }).toString();
+
         const response = await fetch(
-          `https://rickandmortyapi.com/api/character/?name=${name}&status=${status}&species=${species}&type=${type}&gender=${gender}`
+          `https://rickandmortyapi.com/api/character/?${queryParams}`
         );
         const data = await response.json();
         this.characters = data.results || [];
+        this.pages = data.info.pages;
       } catch (error) {
         console.error("Failed to fetch characters:", error);
       } finally {
@@ -59,5 +70,6 @@ export const useCharactersStore = defineStore("characters", {
     allCharacters: (state) => state.characters,
     isLoading: (state) => state.loading,
     singleCharacter: (state) => state.character,
+    allPages: (state) => state.pages,
   },
 });

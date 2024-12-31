@@ -5,6 +5,7 @@
       p.text-danger(v-if="!isLoading && characters.length === 0") No characters found!
       .row
         CharacterCard( v-if="!isLoading && characters.length > 0" v-for="character in characters" :key="character.id" :character="character")
+      Paginator
     </template>
 
 <script setup lang="ts">
