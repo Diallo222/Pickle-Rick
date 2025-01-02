@@ -6,6 +6,7 @@ export const useCharactersStore = defineStore("characters", {
     loading: false,
     character: {},
     pages: 0,
+    params: {},
   }),
   actions: {
     async fetchAllCharacters(page = 1) {
@@ -37,6 +38,7 @@ export const useCharactersStore = defineStore("characters", {
       }
     },
     async filterCharacters(
+      page: number = 1,
       name: string,
       status: string,
       species: string,
@@ -52,9 +54,10 @@ export const useCharactersStore = defineStore("characters", {
           type,
           gender,
         }).toString();
+        this.params = { name, status, species, type, gender };
 
         const response = await fetch(
-          `https://rickandmortyapi.com/api/character/?${queryParams}`
+          `https://rickandmortyapi.com/api/character/?page=${page}&${queryParams}`
         );
         const data = await response.json();
         this.characters = data.results || [];
@@ -71,5 +74,6 @@ export const useCharactersStore = defineStore("characters", {
     isLoading: (state) => state.loading,
     singleCharacter: (state) => state.character,
     allPages: (state) => state.pages,
+    allParams: (state) => state.params,
   },
 });

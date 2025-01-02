@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template lang="pug">
     .container-fluid
@@ -7,5 +6,4 @@
         NuxtPage
 </template>
 
-<style>
-</style>
+<style></style>

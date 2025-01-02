@@ -3,7 +3,11 @@
     .options
       .dropdown
         label(class="form-label") {{ options.label }}
-        select.form-select(:aria-label="options.label" @blur="updateFilter($event, options.label)")
+        select.form-select(
+          :aria-label="options.label"
+          @blur="updateFilter($event, options.label)"
+          :value="modelValue"
+        )
           option(value="") -- Select {{ options.label }} --
           option(
             v-for="option in options.values"
@@ -24,15 +28,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits();
+const emit = defineEmits(["update:modelValue"]);
 
+// Update the filter when an option is selected
 const updateFilter = (event: Event, label: string) => {
   const value = (event.target as HTMLSelectElement).value;
-
-  const updatedFilters = {
-    [label]: value,
-  };
-
-  emit("update:modelValue", updatedFilters);
+  emit("update:modelValue", value);
 };
 </script>

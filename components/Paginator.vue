@@ -1,39 +1,57 @@
 <template lang="pug">
-    .d-flex.justify-content-center.m-2
-      button.btn.btn-primary(v-if="currentPage > 1" @click="onPrevPage") Prev
-      button.btn.btn-primary.mx-2(v-for="page in visiblePages" :key="page" @click="handlePageChange(page)" :class="{'btn-secondary': page === currentPage }") {{ page }}
-      button.btn.btn-primary(v-if="currentPage < pages" @click="onNextPage") Next
+  .d-flex.justify-content-center.m-2
+    button.btn.btn-primary(v-if="currentPage > 1" @click="onPrevPage") Prev
+    button.btn.mx-2(
+      v-for="page in visiblePages" 
+      :key="page" 
+      @click="handlePageChange(page)" 
+      :class="{ 'btn-secondary': page === currentPage }"
+    ) {{ page }}
+    button.btn.btn-primary(v-if="currentPage < pages" @click="onNextPage") Next
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { useCharactersStore } from "~/store/characters";
+import { defineProps, defineEmits, computed } from "vue";
 
-const currentPage = ref(1);
-const charactersStore = useCharactersStore();
+const props = defineProps({
+  currentPage: {
+    type: Number,
+    required: true,
+  },
+  pages: {
+    type: Number,
+    required: true,
+  },
+  allParams: {
+    type: Object,
+    required: true,
+  },
+});
 
-const pages = computed(() => charactersStore.allPages);
+const emit = defineEmits();
 
+// Computed property for visible pages
 const visiblePages = computed(() => {
-  const start = Math.max(1, currentPage.value - 2);
-  const end = Math.min(pages.value, currentPage.value + 2);
+  const maxVisible = 5;
+  const half = Math.floor(maxVisible / 2);
+  const start = Math.max(1, props.currentPage - half);
+  const end = Math.min(props.pages, start + maxVisible - 1);
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 });
 
 const onNextPage = () => {
-  if (currentPage.value < pages.value) {
-    handlePageChange(currentPage.value + 1);
+  if (props.currentPage < props.pages) {
+    handlePageChange(props.currentPage + 1);
   }
 };
-
 const onPrevPage = () => {
-  if (currentPage.value > 1) {
-    handlePageChange(currentPage.value - 1);
+  if (props.currentPage > 1) {
+    handlePageChange(props.currentPage - 1);
   }
 };
 
+// Handler for changing to a specific page
 const handlePageChange = (page: number) => {
-  currentPage.value = page;
-  charactersStore.fetchAllCharacters(page);
+  emit("updatePage", page);
 };
 </script>

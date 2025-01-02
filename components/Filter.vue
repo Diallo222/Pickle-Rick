@@ -2,19 +2,17 @@
   .w-25
     h5 Find Characters
     OmInput(@search="handleSearch" placeholder="Search by name")
-    div(v-for='option in selectorOptions' :key='option.label')
+    div(v-for="option in selectorOptions" :key="option.label")
       MultiSelector(
-      :options="option"
-      @update:modelValue="handleFiltersUpdate"
+        :modelValue="filters[option.label]"
+        :options="option"
+        @update:modelValue="(value) => handleFiltersUpdate({ [option.label]: value })"
       )
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useCharactersStore } from "@/store/characters";
-const charactersStore = useCharactersStore();
+import { useRoute } from "vue-router";
 
-// States
 const filters = ref({
   name: "",
   status: "",
@@ -22,7 +20,13 @@ const filters = ref({
   gender: "",
 });
 
-// Filter options
+const route = useRoute();
+onMounted(() => {
+  if (route.query) {
+    Object.assign(filters.value, route.query);
+  }
+});
+
 const selectorOptions = [
   {
     label: "status",
@@ -38,20 +42,22 @@ const selectorOptions = [
   },
 ];
 
-// Handlers
-const handleFiltersUpdate = (updatedFilters) => {
+const emit = defineEmits();
+
+const handleFiltersUpdate = (updatedFilters: Record<string, string>) => {
   Object.assign(filters.value, updatedFilters);
   applyFilters();
 };
 
-const handleSearch = (searchTerm) => {
+// Handle search input
+const handleSearch = (searchTerm: string) => {
   filters.value.name = searchTerm;
   applyFilters();
 };
 
+// Apply filters and update URL query parameters
 const applyFilters = () => {
-  // Apply filters
   const { name, status, species, gender } = filters.value;
-  charactersStore.filterCharacters(name, status, species, "", gender);
+  emit("updateFilters", { name, status, species, gender });
 };
 </script>
