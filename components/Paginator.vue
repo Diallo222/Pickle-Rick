@@ -22,10 +22,6 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  allParams: {
-    type: Object,
-    required: true,
-  },
 });
 
 const emit = defineEmits();
