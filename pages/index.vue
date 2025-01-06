@@ -1,10 +1,9 @@
 <template lang="pug">
-    .container.d-flex.flex-column.flex-md-row.justify-content-around.gap-3
+    .container.d-flex.flex-column.justify-content-center.align-items-center.vh-100.overflow-hidden
       Filter(
         @updateFilters="handleFiltersChange"
       )
-      .w-75
-        h2.mt-4 Characters List
+      .w-75.overflow-y-auto.overflow-x-hidden.mt-4.pb-4
         Loader(:loading="isLoading")
         p.text-danger(v-if="!isLoading && characters.length === 0") No characters found!
         .row
@@ -36,7 +35,14 @@ onMounted(() => {
   if (route.query) {
     const { page, name, status, species, gender } = route.query;
     currentPage.value = Number(page) || 1;
-    charactersStore.filterCharacters(page, name, status, species, "", gender);
+    charactersStore.filterCharacters(
+      Number(page),
+      name,
+      status,
+      species,
+      "",
+      gender
+    );
   } else {
     charactersStore.filterCharacters(1, "", "", "", "", "");
   }

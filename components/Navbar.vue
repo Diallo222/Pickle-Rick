@@ -1,5 +1,6 @@
 <template lang="pug">
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        .container-fluid.justify-content-center
-            NuxtLink(class="navbar-brand" to="/") RICK AND MORTY
+    nav.navbar.navbar-expand-lg
+        .container-fluid
+            NuxtLink(class="navbar-brand" to="/")
+                img(src="/assets/rmlogo.png" style="width: 180px;object-fit: contain;")
 </template>

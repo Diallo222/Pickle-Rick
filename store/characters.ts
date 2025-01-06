@@ -39,11 +39,11 @@ export const useCharactersStore = defineStore("characters", {
     },
     async filterCharacters(
       page: number = 1,
-      name: string,
-      status: string,
-      species: string,
-      type: string,
-      gender: string
+      name: string = "",
+      status: string = "",
+      species: string = "",
+      type: string = "",
+      gender: string = ""
     ) {
       this.loading = true;
       try {

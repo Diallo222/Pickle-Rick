@@ -2,7 +2,7 @@
   .main
     .options
       .dropdown
-        label(class="form-label") {{ options.label }}
+        label.form-label.text-light {{ options.label }}
         select.form-select(
           :aria-label="options.label"
           @blur="updateFilter($event, options.label)"

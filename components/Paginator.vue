@@ -1,13 +1,13 @@
 <template lang="pug">
   .d-flex.justify-content-center.m-2
-    button.btn.btn-primary(v-if="currentPage > 1" @click="onPrevPage") Prev
-    button.btn.mx-2(
+    button.btn.btn-success(v-if="currentPage > 1" @click="onPrevPage") Prev
+    button.btn.mx-2.text-light(
       v-for="page in visiblePages" 
       :key="page" 
       @click="handlePageChange(page)" 
-      :class="{ 'btn-secondary': page === currentPage }"
+      :class="{ 'btn-success': page === currentPage }"
     ) {{ page }}
-    button.btn.btn-primary(v-if="currentPage < pages" @click="onNextPage") Next
+    button.btn.btn-success(v-if="currentPage < pages" @click="onNextPage") Next
 </template>
 
 <script setup lang="ts">

@@ -1,10 +1,11 @@
 <template lang="pug">
-    .card(class="card")
-      img.card-img-top(:src="character.image" alt="Card image cap" class="image")
+    .card.rounded-4
+      img.card-img-top.rounded-4.rounded-bottom-0.image(:src="character.image" alt="Card image cap")
       .card-body
-        h5.card-title {{character.name}}
+        h5.card-title.fw-semibold.text-light {{character.name}}
         p.card-text status : {{ character.status }}
         p.card-text species : {{ character.species }}
+        p.card-text origin : {{ character.origin.name }}
 </template>
 
 <script setup lang="ts">
@@ -21,10 +22,17 @@ const props = defineProps({
   width: 14rem;
   margin: 10px;
   padding: 0px;
+  border-radius: 20px;
+  background-color: #97ce4c;
 }
 .image {
   height: 14rem;
   width: 100%;
   object-fit: contain;
+}
+.card-text {
+  font-size: 0.8rem;
+  margin: 0;
+  color: white;
 }
 </style>

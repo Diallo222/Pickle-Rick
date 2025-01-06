@@ -1,6 +1,6 @@
 <template lang="pug">
-    .spinner-container.d-flex.justify-content-center.align-items-center(v-if="loading" style="height: 10vh")
-      .spinner-border.text-primary.text-center(role="status")
+    .d-flex.justify-content-center.align-items-center.placeholder-glow(v-if="loading" style="height: 10vh")
+      img.placeholder(src="/assets/rmlogo.png" style="width: 180px;object-fit: contain;")
 </template>
 <script setup lang="ts">
 const props = defineProps({

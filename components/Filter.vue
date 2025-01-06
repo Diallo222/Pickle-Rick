@@ -1,8 +1,8 @@
 <template lang="pug">
-  .w-25
-    h5 Find Characters
+  h5.text-light Find Characters
+  .d-flex.w-100.flex-wrap.justify-content-center.align-items-center.gap-2
     OmInput(@search="handleSearch" placeholder="Search by name")
-    div(v-for="option in selectorOptions" :key="option.label")
+    div.flex-row(v-for="option in selectorOptions" :key="option.label")
       MultiSelector(
         :modelValue="filters[option.label]"
         :options="option"
