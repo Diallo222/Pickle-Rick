@@ -3,9 +3,9 @@
       img.card-img-top.rounded-4.rounded-bottom-0.image(:src="character.image" alt="Card image cap")
       .card-body
         h5.card-title.fw-semibold.text-light {{character.name}}
-        p.card-text status : {{ character.status }}
-        p.card-text species : {{ character.species }}
-        p.card-text origin : {{ character.origin.name }}
+        p.card-text Status : {{ character.status }}
+        p.card-text Species : {{ character.species }}
+        p.card-text Origin : {{ character.origin.name }}
 </template>
 
 <script setup lang="ts">
